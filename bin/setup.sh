@@ -22,5 +22,5 @@ pip3 install pytest selenium xvfbwrapper slacker
 
 runuser -l ubuntu -c "cd ~ && git clone https://github.com/nalbam/deepracer-submit.git"
 
-runuser -l ubuntu -c "curl -fsSL -o ~/run.sh https://raw.githubusercontent.com/nalbam/terraform-aws-deepracer-submit/main/template/run.sh"
+runuser -l ubuntu -c "curl -fsSL -o ~/run.sh https://raw.githubusercontent.com/nalbam/terraform-aws-deepracer-submit/main/bin/run.sh"
 runuser -l ubuntu -c "bash ~/run.sh"
