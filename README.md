@@ -3,7 +3,7 @@
 ## config
 
 ```bash
-export USERNO="$ACCOUNT_ID"
+export USERNO="$(aws sts get-caller-identity | jq .Account -r)"
 export USERNAME="username"
 export PASSWORD="password"
 

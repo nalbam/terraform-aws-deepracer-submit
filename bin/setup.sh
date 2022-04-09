@@ -21,6 +21,9 @@ yum install -y git jq chromium chromedriver
 
 pip3 install pytest selenium xvfbwrapper slacker
 
+runuser -l ec2-user -c "aws configure set default.region ${region}"
+runuser -l ec2-user -c "aws configure set default.output json"
+
 runuser -l ec2-user -c "cd ~ && git clone https://github.com/nalbam/deepracer-submit.git"
 
 runuser -l ec2-user -c "curl -fsSL -o ~/run.sh https://raw.githubusercontent.com/nalbam/terraform-aws-deepracer-submit/main/bin/run.sh"
