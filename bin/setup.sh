@@ -12,6 +12,8 @@ cat <<EOF > /etc/motd
 
 tail -f -n 1000 /var/log/user-data.log
 
+~/deepracer-submit/submit.sh tt
+
 #########################################################
 EOF
 
