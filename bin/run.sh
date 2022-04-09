@@ -33,6 +33,7 @@ _init() {
   export DR_SLACK_TOKEN=$(aws ssm get-parameter --name /dr-submit/slack_token --with-decryption | jq .Parameter.Value -r)
   export DR_SLACK_CHANNEL=$(aws ssm get-parameter --name /dr-submit/slack_channel --with-decryption | jq .Parameter.Value -r)
 
+  # config
   cat <<EOF >config/deepracer.sh
 #!/bin/bash
 
@@ -46,11 +47,19 @@ export DR_SLACK_TOKEN="$DR_SLACK_TOKEN"
 export DR_SLACK_CHANNEL="$DR_SLACK_CHANNEL"
 EOF
 
+  # crontab
   cat <<EOF >config/crontab.sh
 10,20,30,40,50 * * * * ~/deepracer-submit/submit.sh tt > /tmp/submit-tt.log 2>&1
 EOF
 
   crontab config/crontab.sh
+
+  # send slack
+  if [ ! -z ${DR_SLACK_TOKEN} ]; then
+    curl -sL opspresso.github.io/tools/slack.sh | bash -s -- \
+      --token="${DR_SLACK_TOKEN}" --username="deepracer-submit" \
+      --color="good" --title="deepracer-submit" "\`started\`"
+  fi
 
   popd
 }
