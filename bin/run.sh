@@ -13,11 +13,11 @@ EOF
 }
 
 _backup() {
-
+  echo "backup"
 }
 
 _restore() {
-
+  echo "restore"
 }
 
 _init() {
