@@ -2,7 +2,7 @@
 
 variable "region" {
   type    = string
-  default = "us-west-2"
+  default = "ap-northeast-2"
 }
 
 variable "name" {
