@@ -6,6 +6,8 @@ resource "aws_autoscaling_group" "worker" {
   min_size = var.min
   max_size = var.max
 
+  desired_capacity = var.desired
+
   vpc_zone_identifier = local.subnet_ids
 
   # load_balancers = [aws_lb_target_group.public_http.arn]
@@ -19,7 +21,7 @@ resource "aws_autoscaling_group" "worker" {
 
   lifecycle {
     create_before_destroy = true
-    ignore_changes        = [desired_capacity]
+    # ignore_changes        = [desired_capacity]
   }
 
   tags = local.asg_tags

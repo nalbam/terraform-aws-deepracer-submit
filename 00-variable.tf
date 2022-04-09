@@ -57,10 +57,15 @@ variable "associate_public_ip_address" {
 
 variable "min" {
   type    = number
-  default = 1
+  default = 0
 }
 
 variable "max" {
+  type    = number
+  default = 1
+}
+
+variable "desired" {
   type    = number
   default = 1
 }
@@ -81,5 +86,11 @@ variable "allow_ip_address" {
 }
 
 variable "key_name" {
+  type    = string
   default = "nalbam-seoul"
+}
+
+variable "hostname" {
+  type    = string
+  default = "nalbam.com"
 }
