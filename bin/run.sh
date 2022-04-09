@@ -23,22 +23,28 @@ _restore() {
 _init() {
   pushd ~/deepracer-submit
 
-  USERNO="123456789012"
-  USERNAME="username"
-  PASSWORD="password"
+  # get aws ssm parameter store
+  export USERNO=$(aws ssm get-parameter --name /dr-submit/userno --with-decryption | jq .Parameter.Value -r)
+  export USERNAME=$(aws ssm get-parameter --name /dr-submit/username --with-decryption | jq .Parameter.Value -r)
+  export PASSWORD=$(aws ssm get-parameter --name /dr-submit/password --with-decryption | jq .Parameter.Value -r)
 
-  TARGET_URL="https://nalbam.com/deepracer/submit.json"
+  export TARGET_URL=$(aws ssm get-parameter --name /dr-submit/target_url --with-decryption | jq .Parameter.Value -r)
 
-  SLACK_TOKEN="xoxb-1111-2222-xxxx"
-  SLACK_CHANNAL="#sandbox"
+  export SLACK_TOKEN=$(aws ssm get-parameter --name /dr-submit/slack_token --with-decryption | jq .Parameter.Value -r)
+  export SLACK_CHANNEL=$(aws ssm get-parameter --name /dr-submit/slack_channel --with-decryption | jq .Parameter.Value -r)
 
-  echo "#!/bin/bash" > config/deepracer.sh
-  echo "USERNO=\"$USERNO\"" >> config/deepracer.sh
-  echo "USERNAME=\"$USERNAME\"" >> config/deepracer.sh
-  echo "PASSWORD=\"$PASSWORD\"" >> config/deepracer.sh
-  echo "TARGET_URL=\"$TARGET_URL\"" >> config/deepracer.sh
-  echo "SLACK_TOKEN=\"$SLACK_TOKEN\"" >> config/deepracer.sh
-  echo "SLACK_CHANNAL=\"$SLACK_CHANNAL\"" >> config/deepracer.sh
+  cat <<EOF >>config/deepracer.sh
+#!/bin/bash
+
+export USERNO="$USERNO"
+export USERNAME="$USERNAME"
+export PASSWORD="$PASSWORD"
+
+export TARGET_URL="$TARGET_URL"
+
+export SLACK_TOKEN="$SLACK_TOKEN"
+export SLACK_CHANNEL="$SLACK_CHANNEL"
+EOF
 
   popd
 }

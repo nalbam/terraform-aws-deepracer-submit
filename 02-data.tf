@@ -15,12 +15,9 @@ data "aws_subnets" "default" {
 }
 
 data "aws_ami" "default" {
-  # Deep Learning Base AMI (Ubuntu 18.04) Version 52.0
-  # ami-098c6f323d2242d15
-
-  owners = ["898082745236"]
-
   most_recent = true
+
+  owners = ["137112412989"] // AWS's account ID.
 
   filter {
     name   = "architecture"
@@ -39,6 +36,6 @@ data "aws_ami" "default" {
 
   filter {
     name   = "name"
-    values = ["Deep Learning Base AMI (Ubuntu 18.04) *"]
+    values = ["amzn2-ami-hvm-*"]
   }
 }
