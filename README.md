@@ -29,7 +29,7 @@ aws ssm put-parameter --name /dr-submit/slack_channel --value "${SLACK_CHANNEL}"
 ./replace.sh
 
 # ACCOUNT_ID = 123456789012
-# REGION = us-west-2
+# REGION = ap-northeast-2
 # BUCKET = terraform-workshop-123456789012
 ```
 
