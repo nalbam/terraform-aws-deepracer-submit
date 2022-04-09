@@ -54,12 +54,12 @@ EOF
 
   crontab config/crontab.sh
 
-  # send slack
-  if [ ! -z ${DR_SLACK_TOKEN} ]; then
-    curl -sL opspresso.github.io/tools/slack.sh | bash -s -- \
-      --token="${DR_SLACK_TOKEN}" --username="deepracer-submit" \
-      --color="good" --title="deepracer-submit" "\`started\`"
-  fi
+  # # send slack
+  # if [ ! -z ${DR_SLACK_TOKEN} ]; then
+  #   curl -sL opspresso.github.io/tools/slack.sh | bash -s -- \
+  #     --token="${DR_SLACK_TOKEN}" --username="deepracer-submit" \
+  #     --color="good" --title="deepracer-submit" "\`started\`"
+  # fi
 
   popd
 }
