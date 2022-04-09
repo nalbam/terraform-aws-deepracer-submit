@@ -4,7 +4,8 @@
 set -x
 exec >/var/log/user-data.log 2>&1
 
-cat <<EOF | tee -a /etc/motd
+rm -rf /etc/motd
+cat <<EOF > /etc/motd
 #########################################################
 
 # deepracer-submit
