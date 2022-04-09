@@ -14,13 +14,14 @@ tail -f -n 1000 /var/log/user-data.log
 #########################################################
 EOF
 
-apt-get update
+amazon-linux-extras install -y mate-desktop1.x
+amazon-linux-extras install -y epel
 
-apt-get install -y git vim tmux nmon xvfb jq chromium-browser chromium-codecs-ffmpeg chromium-chromedriver
+yum install -y git jq chromium chromedriver
 
 pip3 install pytest selenium xvfbwrapper slacker
 
-runuser -l ubuntu -c "cd ~ && git clone https://github.com/nalbam/deepracer-submit.git"
+runuser -l ec2-user -c "cd ~ && git clone https://github.com/nalbam/deepracer-submit.git"
 
-runuser -l ubuntu -c "curl -fsSL -o ~/run.sh https://raw.githubusercontent.com/nalbam/terraform-aws-deepracer-submit/main/bin/run.sh"
-runuser -l ubuntu -c "bash ~/run.sh"
+runuser -l ec2-user -c "curl -fsSL -o ~/run.sh https://raw.githubusercontent.com/nalbam/terraform-aws-deepracer-submit/main/bin/run.sh"
+runuser -l ec2-user -c "bash ~/run.sh init"
