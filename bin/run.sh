@@ -33,7 +33,7 @@ _init() {
   export DR_SLACK_TOKEN=$(aws ssm get-parameter --name /dr-submit/slack_token --with-decryption | jq .Parameter.Value -r)
   export DR_SLACK_CHANNEL=$(aws ssm get-parameter --name /dr-submit/slack_channel --with-decryption | jq .Parameter.Value -r)
 
-  cat <<EOF >>config/deepracer.sh
+  cat <<EOF >config/deepracer.sh
 #!/bin/bash
 
 export DR_USERNO="$DR_USERNO"
