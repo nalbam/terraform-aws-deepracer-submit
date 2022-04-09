@@ -46,6 +46,12 @@ export DR_SLACK_TOKEN="$DR_SLACK_TOKEN"
 export DR_SLACK_CHANNEL="$DR_SLACK_CHANNEL"
 EOF
 
+  cat <<EOF >config/crontab.sh
+10,20,30,40,50 * * * * /home/pi/deepracer-submit/submit.sh tt > /tmp/submit-tt.log 2>&1
+EOF
+
+  crontab config/crontab.sh
+
   popd
 }
 
