@@ -23,10 +23,6 @@ _restore() {
 _init() {
   pushd ~/deepracer-submit
 
-  if [ ! -f config/deepracer.sh ]; then
-    cp config/deepracer.sample.sh config/deepracer.sh
-  fi
-
   USERNO="123456789012"
   USERNAME="username"
   PASSWORD="password"
@@ -36,14 +32,13 @@ _init() {
   SLACK_TOKEN="xoxb-1111-2222-xxxx"
   SLACK_CHANNAL="#sandbox"
 
-  sed -i "s/\(^USERNO=\)\(.*\)/\1$USERNO/" config/deepracer.sh
-  sed -i "s/\(^USERNAME=\)\(.*\)/\1$USERNAME/" config/deepracer.sh
-  sed -i "s/\(^PASSWORD=\)\(.*\)/\1$PASSWORD/" config/deepracer.sh
-
-  sed -i "s/\(^TARGET_URL=\)\(.*\)/\1$TARGET_URL/" config/deepracer.sh
-
-  sed -i "s/\(^SLACK_TOKEN=\)\(.*\)/\1$SLACK_TOKEN/" config/deepracer.sh
-  sed -i "s/\(^SLACK_CHANNAL=\)\(.*\)/\1$SLACK_CHANNAL/" config/deepracer.sh
+  echo "#!/bin/bash" > config/deepracer.sh
+  echo "USERNO=\"$USERNO\"" >> config/deepracer.sh
+  echo "USERNAME=\"$USERNAME\"" >> config/deepracer.sh
+  echo "PASSWORD=\"$PASSWORD\"" >> config/deepracer.sh
+  echo "TARGET_URL=\"$TARGET_URL\"" >> config/deepracer.sh
+  echo "SLACK_TOKEN=\"$SLACK_TOKEN\"" >> config/deepracer.sh
+  echo "SLACK_CHANNAL=\"$SLACK_CHANNAL\"" >> config/deepracer.sh
 
   popd
 }
