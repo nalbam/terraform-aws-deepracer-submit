@@ -24,32 +24,12 @@ _init() {
   pushd ~/deepracer-submit
 
   # get aws ssm parameter store
-  export DR_USERNO=$(aws ssm get-parameter --name /dr-submit/userno --with-decryption | jq .Parameter.Value -r)
-  export DR_USERNAME=$(aws ssm get-parameter --name /dr-submit/username --with-decryption | jq .Parameter.Value -r)
-  export DR_PASSWORD=$(aws ssm get-parameter --name /dr-submit/password --with-decryption | jq .Parameter.Value -r)
-
-  export DR_TARGET_URL=$(aws ssm get-parameter --name /dr-submit/target_url --with-decryption | jq .Parameter.Value -r)
-
-  export DR_SLACK_TOKEN=$(aws ssm get-parameter --name /dr-submit/slack_token --with-decryption | jq .Parameter.Value -r)
-  export DR_SLACK_CHANNEL=$(aws ssm get-parameter --name /dr-submit/slack_channel --with-decryption | jq .Parameter.Value -r)
-
-  # config
-  cat <<EOF >config/deepracer.sh
-#!/bin/bash
-
-export DR_USERNO="$DR_USERNO"
-export DR_USERNAME="$DR_USERNAME"
-export DR_PASSWORD="$DR_PASSWORD"
-
-export DR_TARGET_URL="$DR_TARGET_URL"
-
-export DR_SLACK_TOKEN="$DR_SLACK_TOKEN"
-export DR_SLACK_CHANNEL="$DR_SLACK_CHANNEL"
-EOF
+  aws ssm get-parameter --name "/dr-submit/config" --with-decryption | jq .Parameter.Value -r \
+    > config/deepracer.json
 
   # crontab
   cat <<EOF >config/crontab.sh
-10,20,30,40,50 * * * * ~/deepracer-submit/submit.sh tt > /tmp/submit-tt.log 2>&1
+10,20,30,40,50 * * * * ~/deepracer-submit/submit.py -t pro > /tmp/submit.log 2>&1
 EOF
 
   crontab config/crontab.sh

@@ -14,18 +14,33 @@ export USERNO="$(aws sts get-caller-identity | jq .Account -r)"
 export USERNAME="username"
 export PASSWORD="password"
 
-export TARGET_URL="https://nalbam.com/deepracer/submit.json"
-
-export SLACK_TOKEN="xoxb-1111-2222-xxxx"
-export SLACK_CHANNEL="#sandbox"
+cat <<EOF > /tmp/deepracer.json
+{
+  "userno": "${USERNO}",
+  "username": "${USERNAME}",
+  "password": "${PASSWORD}",
+  "slack": {
+    "token": "",
+    "channel": "#sandbox"
+  },
+  "leaderboards": [
+    {
+      "name": "pro",
+      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F9f6ca6de-ecfa-467a-a7d9-c899a811a206",
+      "models": [
+        "my-model-01",
+        "my-model-02"
+      ]
+    }
+  ]
+}
+EOF
 
 # put aws ssm parameter store
-aws ssm put-parameter --name /dr-submit/userno --value "${USERNO}" --type SecureString --overwrite | jq .
-aws ssm put-parameter --name /dr-submit/username --value "${USERNAME}" --type SecureString --overwrite | jq .
-aws ssm put-parameter --name /dr-submit/password --value "${PASSWORD}" --type SecureString --overwrite | jq .
-aws ssm put-parameter --name /dr-submit/target_url --value "${TARGET_URL}" --type SecureString --overwrite | jq .
-aws ssm put-parameter --name /dr-submit/slack_token --value "${SLACK_TOKEN}" --type SecureString --overwrite | jq .
-aws ssm put-parameter --name /dr-submit/slack_channel --value "${SLACK_CHANNEL}" --type SecureString --overwrite | jq .
+aws ssm put-parameter --name "/dr-submit/config" --type SecureString --overwrite --value file:///tmp/deepracer.json | jq .
+
+# get aws ssm parameter store
+aws ssm get-parameter --name "/dr-submit/config" --with-decryption | jq .Parameter.Value -r
 ```
 
 ## replace
