@@ -1,5 +1,9 @@
 # terraform-aws-deepracer-submit
 
+* <https://github.com/nalbam/deepracer-submit>
+
+> spot 인스턴스를 황용하여 자동으로 deepracer model 을 submit 해줍니다.
+
 ## config
 
 ```bash
