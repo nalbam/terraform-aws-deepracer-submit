@@ -3,6 +3,9 @@
 ## config
 
 ```bash
+aws configure set default.region ap-northeast-2
+aws configure set default.output json
+
 export USERNO="$(aws sts get-caller-identity | jq .Account -r)"
 export USERNAME="username"
 export PASSWORD="password"
