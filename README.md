@@ -36,11 +36,17 @@ cat <<EOF > /tmp/deepracer.json
 }
 EOF
 
+cat <<EOF > /tmp/crontab.sh
+10,20,30,40,50 * * * * /home/ec2-user/deepracer-submit/submit.py -t pro > /tmp/submit.log 2>&1
+EOF
+
 # put aws ssm parameter store
 aws ssm put-parameter --name "/dr-submit/config" --type SecureString --overwrite --value file:///tmp/deepracer.json | jq .
+aws ssm put-parameter --name "/dr-submit/crontab" --type SecureString --overwrite --value file:///tmp/crontab.sh | jq .
 
 # get aws ssm parameter store
 aws ssm get-parameter --name "/dr-submit/config" --with-decryption | jq .Parameter.Value -r
+aws ssm get-parameter --name "/dr-submit/crontab" --with-decryption | jq .Parameter.Value -r
 ```
 
 ## replace

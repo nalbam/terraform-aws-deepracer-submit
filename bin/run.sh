@@ -26,12 +26,10 @@ _init() {
   # get aws ssm parameter store
   aws ssm get-parameter --name "/dr-submit/config" --with-decryption | jq .Parameter.Value -r \
     > config/deepracer.json
+  aws ssm get-parameter --name "/dr-submit/crontab" --with-decryption | jq .Parameter.Value -r \
+    > config/crontab.sh
 
   # crontab
-  cat <<EOF >config/crontab.sh
-10,20,30,40,50 * * * * ~/deepracer-submit/submit.py -t pro > /tmp/submit.log 2>&1
-EOF
-
   crontab config/crontab.sh
 
   # # send slack
