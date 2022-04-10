@@ -21,23 +21,20 @@ _restore() {
 }
 
 _init() {
+  pushd ~
+
+  git clone https://github.com/nalbam/deepracer-submit.git
+
+  popd
+
   pushd ~/deepracer-submit
 
   # get aws ssm parameter store
-  aws ssm get-parameter --name "/dr-submit/config" --with-decryption | jq .Parameter.Value -r \
-    > config/deepracer.json
-  aws ssm get-parameter --name "/dr-submit/crontab" --with-decryption | jq .Parameter.Value -r \
-    > config/crontab.sh
+  aws ssm get-parameter --name "/dr-submit/config" --with-decryption | jq .Parameter.Value -r >config/deepracer.json
+  aws ssm get-parameter --name "/dr-submit/crontab" --with-decryption | jq .Parameter.Value -r >config/crontab.sh
 
   # crontab
   crontab config/crontab.sh
-
-  # # send slack
-  # if [ ! -z ${DR_SLACK_TOKEN} ]; then
-  #   curl -sL opspresso.github.io/tools/slack.sh | bash -s -- \
-  #     --token="${DR_SLACK_TOKEN}" --username="deepracer-submit" \
-  #     --color="good" --title="deepracer-submit" "\`started\`"
-  # fi
 
   popd
 }
