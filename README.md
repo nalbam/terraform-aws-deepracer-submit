@@ -2,9 +2,11 @@
 
 * <https://github.com/nalbam/deepracer-submit>
 
-> spot 인스턴스를 황용하여 자동으로 deepracer model 을 submit 해줍니다.
+> Automatically submit deepracer model using spot instance.
 
 ## config
+
+> Save the environment variable json in AWS SSM.
 
 ```bash
 aws configure set default.region ap-northeast-2
@@ -59,7 +61,7 @@ aws ssm get-parameter --name "/dr-submit/crontab" --with-decryption | jq .Parame
 
 ## replace
 
-> 이 쉘을 실행하면, 테라폼 백엔드의 버켓을 aws account id 를 포함하는 문자로 변경하고, 버켓이 없다면 버켓을 생성 합니다.
+> Create bucket and dynamodb for Terraform backend.
 
 ```bash
 ./replace.sh
