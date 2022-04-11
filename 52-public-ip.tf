@@ -18,6 +18,8 @@ data "aws_instances" "worker" {
 #   tags = local.tags
 # }
 
+# output
+
 output "public_ip" {
   value = try(data.aws_instances.worker.0.public_ips.0, "")
   # value = aws_eip.worker.public_ip
