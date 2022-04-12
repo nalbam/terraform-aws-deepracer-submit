@@ -92,5 +92,5 @@ variable "key_name" {
 
 variable "zone_name" {
   type    = string
-  default = "nalbam.com"
+  default = ""
 }
