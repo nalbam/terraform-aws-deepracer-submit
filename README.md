@@ -48,6 +48,7 @@ EOF
 
 cat <<EOF > /tmp/crontab.sh
 10,20,30,40,50 * * * * /home/ec2-user/deepracer-submit/submit.py -t pro > /tmp/submit.log 2>&1
+0 * * * * bash /home/ec2-user/run.sh restore
 EOF
 
 # put aws ssm parameter store
