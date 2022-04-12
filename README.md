@@ -77,6 +77,7 @@ aws ssm get-parameter --name "/dr-submit/crontab" --with-decryption | jq .Parame
 > Create a Spot Instance with AutoscalingGroup.
 
 ```bash
+# start
 terraform apply
 
 # ...
@@ -84,4 +85,7 @@ terraform apply
 Outputs:
 
 public_ip = "54.69.00.00"
+
+# stop
+terraform apply -var desired=0
 ```
