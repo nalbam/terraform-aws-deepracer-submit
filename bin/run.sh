@@ -12,21 +12,7 @@ _usage() {
 EOF
 }
 
-_backup() {
-  echo "backup"
-}
-
 _restore() {
-  echo "restore"
-}
-
-_init() {
-  pushd ~
-
-  git clone https://github.com/nalbam/deepracer-submit.git
-
-  popd
-
   pushd ~/deepracer-submit
 
   # get aws ssm parameter store
@@ -39,12 +25,19 @@ _init() {
   popd
 }
 
+_init() {
+  pushd ~
+
+  git clone https://github.com/nalbam/deepracer-submit.git
+
+  popd
+
+  _restore
+}
+
 case ${CMD} in
 i | init)
   _init
-  ;;
-b | backup)
-  _backup
   ;;
 r | restore)
   _restore
