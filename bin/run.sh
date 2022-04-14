@@ -2,7 +2,11 @@
 
 CMD=${1}
 
+AWS_RESION=$(aws configure get default.region)
 ACCOUNT_ID=$(aws sts get-caller-identity | jq .Account -r)
+
+echo "AWS_RESION: ${AWS_RESION}"
+echo "ACCOUNT_ID: ${ACCOUNT_ID}"
 
 _usage() {
   cat <<EOF
