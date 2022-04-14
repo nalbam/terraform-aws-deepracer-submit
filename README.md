@@ -16,13 +16,15 @@ export USERNO="$(aws sts get-caller-identity | jq .Account -r)"
 export USERNAME="username"
 export PASSWORD="password"
 
+export SLACK_TOKEN="" # xoxb-xxx
+
 cat <<EOF > /tmp/deepracer.json
 {
   "userno": "${USERNO}",
   "username": "${USERNAME}",
   "password": "${PASSWORD}",
   "slack": {
-    "token": "",
+    "token": "${SLACK_TOKEN}",
     "channel": "#sandbox"
   },
   "races": [
