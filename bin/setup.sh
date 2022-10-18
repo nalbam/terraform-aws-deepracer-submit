@@ -22,7 +22,7 @@ amazon-linux-extras install -y epel
 
 yum install -y git jq chromium chromedriver
 
-pip3 install pytest selenium xvfbwrapper slacker
+pip3 install pytest selenium xvfbwrapper slack_sdk
 
 runuser -l ec2-user -c "aws configure set default.region ${region}"
 runuser -l ec2-user -c "aws configure set default.output json"
