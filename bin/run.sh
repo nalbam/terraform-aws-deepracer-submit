@@ -27,6 +27,8 @@ _restore() {
   crontab config/crontab.sh
 
   popd
+
+  date -u +"%Y-%m-%dT%H:%M:%SZ"
 }
 
 _init() {
