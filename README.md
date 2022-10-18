@@ -12,15 +12,24 @@
 aws configure set default.region ap-northeast-2
 aws configure set default.output json
 
-export USERNO="$(aws sts get-caller-identity | jq .Account -r)"
+export ACCOUNT_ID="$(aws sts get-caller-identity | jq .Account -r)"
+
 export USERNAME="username"
 export PASSWORD="password"
 
-export SLACK_TOKEN="" # xoxb-xxx
+export SLACK_TOKEN="xoxb-xxx-xxx-xxx"
+
+aws ssm put-parameter --name "/dr-submit/username" --value "${USERNAME}" --type SecureString --overwrite | jq .
+aws ssm put-parameter --name "/dr-submit/password" --value "${PASSWORD}" --type SecureString --overwrite | jq .
+aws ssm put-parameter --name "/dr-submit/slack_token" --value "${SLACK_TOKEN}" --type SecureString --overwrite | jq .
+
+export USERNAME="$(aws ssm get-parameter --name "/dr-submit/username" --with-decryption | jq .Parameter.Value -r)"
+export PASSWORD="$(aws ssm get-parameter --name "/dr-submit/password" --with-decryption | jq .Parameter.Value -r)"
+export SLACK_TOKEN="$(aws ssm get-parameter --name "/dr-submit/slack_token" --with-decryption | jq .Parameter.Value -r)"
 
 cat <<EOF > /tmp/deepracer.json
 {
-  "userno": "${USERNO}",
+  "userno": "${ACCOUNT_ID}",
   "username": "${USERNAME}",
   "password": "${PASSWORD}",
   "slack": {
