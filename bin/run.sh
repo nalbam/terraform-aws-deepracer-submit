@@ -19,6 +19,8 @@ EOF
 _restore() {
   pushd ~/deepracer-submit
 
+  git pull
+
   # get aws ssm parameter store
   aws ssm get-parameter --name "/dr-submit/config" --with-decryption | jq .Parameter.Value -r >config/deepracer.json
   aws ssm get-parameter --name "/dr-submit/crontab" --with-decryption | jq .Parameter.Value -r >config/crontab.sh
