@@ -70,12 +70,12 @@ variable "desired" {
   default = 1
 }
 
-variable "suspended_processes" {
-  type = list(string)
-  default = [
-    # "Launch",
-  ]
-}
+# variable "suspended_processes" {
+#   type = list(string)
+#   default = [
+#     # "Launch",
+#   ]
+# }
 
 variable "allow_ip_address" {
   type = list(string)

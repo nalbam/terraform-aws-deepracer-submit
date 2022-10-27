@@ -10,7 +10,7 @@ resource "aws_autoscaling_group" "worker" {
 
   vpc_zone_identifier = local.subnet_ids
 
-  suspended_processes = var.suspended_processes
+  # suspended_processes = var.suspended_processes
 
   launch_template {
     id      = aws_launch_template.worker.id
