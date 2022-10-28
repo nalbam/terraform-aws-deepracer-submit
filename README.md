@@ -18,19 +18,22 @@ git clone https://github.com/nalbam/terraform-aws-deepracer-submit
 aws configure set default.region ap-northeast-2
 aws configure set default.output json
 
-export ACCOUNT_ID="$(aws sts get-caller-identity | jq .Account -r)"
+export AWS_RESION=$(aws configure get default.region)
+export ACCOUNT_ID=$(aws sts get-caller-identity | jq .Account -r)
 
-export USERNAME="username"
-export PASSWORD="password"
+echo "AWS_RESION: ${AWS_RESION}"
+echo "ACCOUNT_ID: ${ACCOUNT_ID}"
 
-export SLACK_TOKEN="xoxb-xxx-xxx-xxx"
+# export DR_USERNAME="username"
+# export DR_PASSWORD="password"
+# export SLACK_TOKEN="xoxb-xxx-xxx-xxx"
 
-aws ssm put-parameter --name "/dr-submit/username" --value "${USERNAME}" --type SecureString --overwrite | jq .
-aws ssm put-parameter --name "/dr-submit/password" --value "${PASSWORD}" --type SecureString --overwrite | jq .
-aws ssm put-parameter --name "/dr-submit/slack_token" --value "${SLACK_TOKEN}" --type SecureString --overwrite | jq .
+# aws ssm put-parameter --name "/dr-submit/username" --value "${DR_USERNAME}" --type SecureString --overwrite | jq .
+# aws ssm put-parameter --name "/dr-submit/password" --value "${DR_PASSWORD}" --type SecureString --overwrite | jq .
+# aws ssm put-parameter --name "/dr-submit/slack_token" --value "${SLACK_TOKEN}" --type SecureString --overwrite | jq .
 
-export USERNAME="$(aws ssm get-parameter --name "/dr-submit/username" --with-decryption | jq .Parameter.Value -r)"
-export PASSWORD="$(aws ssm get-parameter --name "/dr-submit/password" --with-decryption | jq .Parameter.Value -r)"
+export DR_USERNAME="$(aws ssm get-parameter --name "/dr-submit/username" --with-decryption | jq .Parameter.Value -r)"
+export DR_PASSWORD="$(aws ssm get-parameter --name "/dr-submit/password" --with-decryption | jq .Parameter.Value -r)"
 export SLACK_TOKEN="$(aws ssm get-parameter --name "/dr-submit/slack_token" --with-decryption | jq .Parameter.Value -r)"
 
 cat <<EOF > /tmp/deepracer.json
@@ -47,16 +50,21 @@ cat <<EOF > /tmp/deepracer.json
       "name": "open",
       "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F3cd3f5fa-a1e8-434a-a099-e15ba5b426c4",
       "models": [
-        "my-model-01",
-        "my-model-02"
+        "DR-2204-OPEN-B-2-clone", "DR-2204-OPEN-B-3-clone"
       ]
     },
     {
       "name": "pro",
       "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2Fe5eedeec-7a74-411d-a83e-895666b36af7",
       "models": [
-        "my-model-01",
-        "my-model-02"
+        "DR-2204-PRO-D-5", "DR-2210-PRO-C-2", "DR-2210-PRO-C-3"
+      ]
+    },
+    {
+      "name": "comm",
+      "arn": "competition/arn%3Aaws%3Adeepracer%3A%3A493717844238%3Aleaderboard%2F05dd1efc-4ada-48b2-9cbb-441d2a6ac4e4",
+      "models": [
+        "DR-22-CHAMP-C-2", "DR-22-CHAMP-C-3"
       ]
     }
   ]
