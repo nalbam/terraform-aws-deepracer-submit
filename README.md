@@ -4,6 +4,12 @@
 
 > Automatically submit deepracer model using spot instance.
 
+## clone
+
+```bash
+git clone https://github.com/nalbam/terraform-aws-deepracer-submit
+```
+
 ## config
 
 > Save the environment variable json in AWS SSM.
