@@ -15,7 +15,7 @@ git clone https://github.com/nalbam/terraform-aws-deepracer-submit
 > Save the environment variable json in AWS SSM.
 
 ```bash
-aws configure set default.region ap-northeast-2
+aws configure set default.region us-east-1
 aws configure set default.output json
 
 export AWS_RESION=$(aws configure get default.region)
