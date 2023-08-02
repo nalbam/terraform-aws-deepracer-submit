@@ -72,7 +72,7 @@ variable "max" {
 
 variable "desired" {
   type    = number
-  default = 1
+  default = 0
 }
 
 # variable "suspended_processes" {
@@ -89,7 +89,7 @@ variable "on_demand_base" {
 
 variable "on_demand_rate" {
   type    = number
-  default = 100
+  default = 0
 }
 
 variable "spot_strategy" {
