@@ -12,9 +12,31 @@ resource "aws_autoscaling_group" "worker" {
 
   # suspended_processes = var.suspended_processes
 
-  launch_template {
-    id      = aws_launch_template.worker.id
-    version = "$Latest"
+  # target_group_arns = aws_lb_target_group.http.*.arn
+
+  # launch_template {
+  #   id      = aws_launch_template.worker.id
+  #   version = "$Latest"
+  # }
+
+  mixed_instances_policy {
+    instances_distribution {
+      on_demand_base_capacity                  = var.on_demand_base
+      on_demand_percentage_above_base_capacity = var.on_demand_rate
+      spot_allocation_strategy                 = var.spot_strategy
+    }
+
+    launch_template {
+      launch_template_specification {
+        launch_template_id = aws_launch_template.worker.id
+        version            = "$Latest"
+      }
+
+      override {
+        instance_type = var.instance_type
+        # weighted_capacity = 10
+      }
+    }
   }
 
   lifecycle {
