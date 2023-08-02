@@ -15,6 +15,11 @@ variable "instance_type" {
   default = "t3.small"
 }
 
+variable "market_type" {
+  type    = string
+  default = "spot"
+}
+
 variable "ami_id" {
   type    = string
   default = ""
