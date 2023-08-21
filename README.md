@@ -47,13 +47,6 @@ cat <<EOF > /tmp/deepracer.json
   },
   "races": [
     {
-      "name": "open",
-      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F3cd3f5fa-a1e8-434a-a099-e15ba5b426c4",
-      "models": [
-        "DR-2204-OPEN-B-2-clone", "DR-2204-OPEN-B-3-clone"
-      ]
-    },
-    {
       "name": "pro",
       "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2Fe5eedeec-7a74-411d-a83e-895666b36af7",
       "models": [
