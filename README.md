@@ -43,7 +43,7 @@ cat <<EOF > /tmp/deepracer.json
   "password": "${PASSWORD}",
   "slack": {
     "token": "${SLACK_TOKEN}",
-    "channel": "#sandbox"
+    "channel": "sandbox"
   },
   "races": [
     {
