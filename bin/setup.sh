@@ -23,6 +23,7 @@ amazon-linux-extras install -y epel
 yum install -y git jq chromium chromedriver
 
 pip3 install pytest selenium xvfbwrapper slack_sdk
+pip3 install urllib3==1.26.7
 
 runuser -l ec2-user -c "aws configure set default.region ${region}"
 runuser -l ec2-user -c "aws configure set default.output json"
